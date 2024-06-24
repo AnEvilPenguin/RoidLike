@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -84,5 +85,10 @@ public class Player : MonoBehaviour
         var flip = position * -1;
 
         return Mathf.Clamp(flip, limit * -1, limit);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("A collsion occured");
     }
 }
