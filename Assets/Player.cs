@@ -14,10 +14,6 @@ public class Player : MonoBehaviour
     public float MaxAngularMomentum = 5;
 
     public float angularMomentum = 0;
-    public float velocity = 0;
-
-    public bool flippedX = false;
-    public bool flippedY = false;
 
     // Start is called before the first frame update
     void Start()
@@ -80,7 +76,6 @@ public class Player : MonoBehaviour
             var y = FlipSide(transform.position.y, vertExtent);
 
             transform.position = new Vector2(transform.position.x, y);
-
         }
     }
 
