@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 296698979}
   - component: {fileID: 296698980}
   - component: {fileID: 296698981}
+  - component: {fileID: 296698982}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -182,7 +183,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &296698981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,13 +199,26 @@ MonoBehaviour:
   myRigidbody: {fileID: 296698980}
   myRenderer: {fileID: 369154442}
   myCamera: {fileID: 519420031}
-  weapon: {fileID: 4788342088823253859, guid: 0a27d45dac4345a4cad5a46fdb511071, type: 3}
-  FiringPoint: {fileID: 1899088218}
   teleporter: {fileID: 7621204259677884245, guid: fd842a0bdedd242429c01468687c704e, type: 3}
   Acceleration: 0.05
   MaxSpeed: 5
   MaxAngularMomentum: 60
   angularMomentum: 0
+--- !u!114 &296698982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296698978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b93139156f7d77a49a03761e308857aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 9166292191194823220, guid: 190425f37fa6cf84fbcd5ca6f2057287, type: 3}
+  firingPoint: {fileID: 1899088219}
+  speed: 20
 --- !u!1 &369154440
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +400,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

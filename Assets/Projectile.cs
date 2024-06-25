@@ -7,18 +7,22 @@ public class Projectile : MonoBehaviour
     public Rigidbody2D body;
     public Teleporter teleporter;
 
-    public float speed = 10f;
-    public float timeToLive = 2f;
+    public GameObject hitEffect;
+
+    public float timeToLive = 2.4f;
 
     void Start()
     {
         Destroy(gameObject, timeToLive);
     }
 
-    void FixedUpdate()
+    private void Update()
     {
-        body.velocity = transform.up * speed;
-
         teleporter.Teleport(gameObject.transform);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
     }
 }

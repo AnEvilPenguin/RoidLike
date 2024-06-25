@@ -9,10 +9,6 @@ public class Player : MonoBehaviour
     public Renderer myRenderer;
     public Camera myCamera;
 
-    public ProjectileFactory weapon;
-
-    public GameObject FiringPoint;
-
     public Teleporter teleporter;
 
     public float Acceleration = 1;
@@ -25,7 +21,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        weapon.SetFiringPoint(FiringPoint.transform);
         teleporter.Configure(myCamera);
     }
 
@@ -58,11 +53,6 @@ public class Player : MonoBehaviour
         {
             angularMomentum = angularMomentum >= MaxAngularMomentum ? MaxAngularMomentum : angularMomentum + 1;
             myRigidbody.rotation -= angularMomentum * Time.deltaTime;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            weapon.Launch();
         }
 
         teleporter.Teleport(gameObject.transform);
