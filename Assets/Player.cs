@@ -9,6 +9,12 @@ public class Player : MonoBehaviour
     public Renderer myRenderer;
     public Camera myCamera;
 
+    public ProjectileFactory weapon;
+
+    public GameObject FiringPoint;
+
+    public Teleporter teleporter;
+
     public float Acceleration = 1;
     public float MaxSpeed = 5;
 
@@ -19,7 +25,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        weapon.SetFiringPoint(FiringPoint.transform);
+        teleporter.Configure(myCamera);
     }
 
     // Update is called once per frame
@@ -53,38 +60,12 @@ public class Player : MonoBehaviour
             myRigidbody.rotation -= angularMomentum * Time.deltaTime;
         }
 
-
-        Teleport();
-    }
-
-    private void Teleport()
-    {
-        var vertExtent = myCamera.orthographicSize;
-        var horzExtent = vertExtent * Screen.width / Screen.height;
-
-        var absX = Mathf.Abs(transform.position.x);
-        var absY = Mathf.Abs(transform.position.y);
-
-        if (absX >= horzExtent)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            var x = FlipSide(transform.position.x, horzExtent);
-
-            transform.position = new Vector2(x, transform.position.y);
+            weapon.Launch();
         }
 
-        if (absY >= vertExtent)
-        {
-            var y = FlipSide(transform.position.y, vertExtent);
-
-            transform.position = new Vector2(transform.position.x, y);
-        }
-    }
-
-    private float FlipSide(float position, float limit)
-    {
-        var flip = position * -1;
-
-        return Mathf.Clamp(flip, limit * -1, limit);
+        teleporter.Teleport(gameObject.transform);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
