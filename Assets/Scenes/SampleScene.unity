@@ -169,7 +169,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b93139156f7d77a49a03761e308857aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 9166292191194823220, guid: 190425f37fa6cf84fbcd5ca6f2057287, type: 3}
+  projectilePrefab: {fileID: 8432762086361047828, guid: 190425f37fa6cf84fbcd5ca6f2057287, type: 3}
   firingPoint: {fileID: 1899088219}
   speed: 20
 --- !u!1 &369154440
@@ -481,7 +481,7 @@ Transform:
   m_GameObject: {fileID: 1899088218}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.2453, z: 0}
+  m_LocalPosition: {x: 0, y: 0.325, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

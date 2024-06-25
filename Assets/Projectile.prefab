@@ -76,7 +76,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 2206335473893980305}
   teleporter: {fileID: 7621204259677884245, guid: fd842a0bdedd242429c01468687c704e, type: 3}
-  timeToLive: 2.4
+  hitEffect: {fileID: 0}
+  timeToLive: 2
+  Origin: {fileID: 0}
 --- !u!212 &3095034021546067370
 SpriteRenderer:
   m_ObjectHideFlags: 0

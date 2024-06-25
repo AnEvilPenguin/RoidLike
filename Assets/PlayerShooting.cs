@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public GameObject projectilePrefab;
+    public Projectile projectilePrefab;
     public Transform firingPoint;
 
     public float speed = 20f;
@@ -22,6 +22,8 @@ public class PlayerShooting : MonoBehaviour
     {
         var bullet = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
         var body = bullet.GetComponent<Rigidbody2D>();
+
+        bullet.Origin = firingPoint;
 
         body.AddForce(firingPoint.up * speed, ForceMode2D.Impulse);
     }
