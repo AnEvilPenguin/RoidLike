@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
@@ -34,6 +35,8 @@ public class AsteroidSpawner : MonoBehaviour
 
     private void Spawn()
     {
+        asteroids = asteroids.Where(x => x != null).ToList();
+
         for (int i = 0; i < SpawnAmount; i++)
         {
             if (asteroids.Count >= Level * AsteroidsPerLevel)

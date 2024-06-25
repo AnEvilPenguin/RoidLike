@@ -487,10 +487,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AsteroidPrefab: {fileID: 5798118943302319179, guid: 7edd7dde380adf840a57e99c71feae3f, type: 3}
   SpawnRate: 5
+  SpawnStart: 2
   SpawnAmount: 1
   SpawnDistance: 20
   SizeVariance: 1
-  SpeedVariance: 1
+  SpeedVariance: 0.1
+  Level: 1
+  AsteroidsPerLevel: 2
 --- !u!4 &840438326
 Transform:
   m_ObjectHideFlags: 0
