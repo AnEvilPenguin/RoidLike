@@ -7,6 +7,7 @@ public class AsteroidSpawner : MonoBehaviour
     public Asteroid AsteroidPrefab;
 
     public float SpawnRate = 2.0f;
+    public float SpawnStart = 2.0f;
     public int SpawnAmount = 1;
     public float SpawnDistance = 20.0f;
     public float SizeVariance = 1;
@@ -21,7 +22,7 @@ public class AsteroidSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating(nameof(Spawn), SpawnRate, SpawnRate);
+        InvokeRepeating(nameof(Spawn), SpawnStart, SpawnRate);
         asteroids = new List<Asteroid>();
     }
 
