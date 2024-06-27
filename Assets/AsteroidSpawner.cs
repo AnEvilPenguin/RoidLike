@@ -25,6 +25,8 @@ public class AsteroidSpawner : MonoBehaviour
     {
         InvokeRepeating(nameof(Spawn), SpawnStart, SpawnRate);
         asteroids = new List<Asteroid>();
+
+        GameMaster.LevelUp += OnLevelUp;
     }
 
     // Update is called once per frame
@@ -58,6 +60,9 @@ public class AsteroidSpawner : MonoBehaviour
             asteroids.Add(asteroid);
         }
     }
+
+    private void OnLevelUp(object sender, System.EventArgs e) =>
+        Level++;
 
     public void TrackAsteroid(Asteroid roid) =>
         asteroids.Add(roid);
