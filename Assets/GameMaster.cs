@@ -17,9 +17,12 @@ public class GameMaster : MonoBehaviour
         Asteroid.AsteroidDestroyed += HandleAsteroidDestroyed;
     }
 
-    private void HandleAsteroidDestroyed(object sender, AsteroidDestroyedEventArgs e)
+    private void HandleAsteroidDestroyed(object sender, AsteroidDestroyedEventArgs e) =>
+        UpdateScore(e.Score);
+
+    private void UpdateScore(int scoreIncrease)
     {
-        Score += e.Score;
+        Score += scoreIncrease;
         ScoreLabel.text = Score.ToString();
     }
 }
