@@ -1,10 +1,22 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
+
+public class AsteroidDestroyedEventArgs : System.EventArgs
+{
+    public int Score { get; set; }
+
+    public AsteroidDestroyedEventArgs(int score)
+    {
+        Score = score;
+    }
+}
 
 public class Asteroid : MonoBehaviour
 {
+    public static event System.EventHandler<AsteroidDestroyedEventArgs> AsteroidDestroyed;
+
+    public delegate void AsteroidDestroyedEventHandler(AsteroidDestroyedEventArgs e);
+
     public Teleporter teleporter;
 
     private SpriteRenderer sprite;
@@ -64,8 +76,14 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            // Do a thing
-            Debug.Log("Hit Bullet");
+            // TODO implement health?
+            var raiseEvent = AsteroidDestroyed;
+
+            if (raiseEvent != null)
+            {
+                // FIXME better scoring
+                raiseEvent(this, new AsteroidDestroyedEventArgs(1));
+            }
 
 
             if (Size / 2 < SmallestSize)
@@ -83,10 +101,6 @@ public class Asteroid : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        // TODO spawn two smaller asteroids
-        // TODO split them off at ~ 45 deg from current direction
-        // Fire off event for score?
     }
 
     private void Split()
