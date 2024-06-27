@@ -29,12 +29,6 @@ public class AsteroidSpawner : MonoBehaviour
         GameMaster.LevelUp += OnLevelUp;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void Spawn()
     {
         asteroids = asteroids.Where(x => x != null).ToList();
