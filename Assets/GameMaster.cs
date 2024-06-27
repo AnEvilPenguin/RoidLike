@@ -15,6 +15,7 @@ public class GameMaster : MonoBehaviour
     public Player Player;
 
     public TMP_Text ScoreLabel;
+    public GameObject LevelUpMenu;
 
     public Tuple<int, int> ScoreToLevelUp = new Tuple<int, int> (5, 8);
     public int Score = 0;
@@ -51,7 +52,9 @@ public class GameMaster : MonoBehaviour
 
         if (levelUp != null)
         {
+            PauseGame();
             levelUp(this, new EventArgs());
+            LevelUpMenu.SetActive(true);
         }
     }
 
