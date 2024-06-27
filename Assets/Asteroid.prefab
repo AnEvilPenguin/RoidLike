@@ -194,5 +194,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a2fc4a7eecca96e4b850180e2317983b, type: 3}
   - {fileID: 21300000, guid: 38c3e5353e9a3314c890c97a6f74266d, type: 3}
   - {fileID: 21300000, guid: 746134d5bd5ea7740a604849fe12200d, type: 3}
-  Size: 8
-  Speed: 0.3
+  Source: {fileID: 0}
+  Size: 24
+  Speed: 1

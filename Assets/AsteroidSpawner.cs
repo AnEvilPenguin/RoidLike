@@ -50,9 +50,15 @@ public class AsteroidSpawner : MonoBehaviour
             asteroid.Size = Random.Range(asteroid.Size - SizeVariance, asteroid.Size + SizeVariance);
             asteroid.Speed = Random.Range(asteroid.Speed - SpeedVariance, asteroid.Speed + SpeedVariance);
 
-            asteroid.Project(-spawnDirection);
+            asteroid.CalculateSize();
+
+            asteroid.Project(-spawnDirection * asteroid.Speed);
+            asteroid.Source = this;
 
             asteroids.Add(asteroid);
         }
     }
+
+    public void TrackAsteroid(Asteroid roid) =>
+        asteroids.Add(roid);
 }

@@ -13,8 +13,11 @@ public class Asteroid : MonoBehaviour
     public List<Sprite> LargeSprites;
     public List<Sprite> SmallSprites;
 
+    public AsteroidSpawner Source;
+
     public float Size = 8.0f;
     public float Speed = 5f;
+    public float SmallestSize = 2.0f;
 
     private Vector2 _direction;
 
@@ -26,17 +29,15 @@ public class Asteroid : MonoBehaviour
 
     void Start()
     {
-        
         SetLargeSprite();
 
         // rotation, size, mass
         transform.eulerAngles = new Vector3 (0, 0, Random.value * 360.0f);
-        CalculateSize();
     }
 
     public void CalculateSize()
     {
-        transform.localScale = Vector3.one * Size;
+        transform.localScale = Vector3.one * Size / 3;
 
         body.mass = Size;
 
@@ -56,7 +57,7 @@ public class Asteroid : MonoBehaviour
     public void Project(Vector2 direction)
     {
         _direction = direction;
-        body.AddForce(direction * Speed, ForceMode2D.Impulse);
+        body.AddForce(direction * Mathf.Max(Speed, 1), ForceMode2D.Impulse);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -66,33 +67,17 @@ public class Asteroid : MonoBehaviour
             // Do a thing
             Debug.Log("Hit Bullet");
 
-            var size = Size / 2;
 
-            if (size < 1)
+            if (Size / 2 < SmallestSize)
             {
                 Destroy(gameObject);
                 return;
             }
 
-            Asteroid roid1 = Instantiate(this, transform.position, Random.rotation);
-            Asteroid roid2 = Instantiate(this, transform.position, Random.rotation);
-
-            roid1.Size = size;
-            roid2.Size = size;
-
-            roid1.Speed = Speed;
-            roid2.Speed = Speed;
-
-            roid1.CalculateSize();
-            roid2.CalculateSize();
-
             float random = Random.value * 45.0f;
 
-            var dir1 = Quaternion.AngleAxis(random, Vector3.forward) * _direction;
-            var dir2 = Quaternion.AngleAxis(-random, Vector3.forward) * _direction;
-
-            roid1.Project(dir1);
-            roid2.Project(dir2);
+            NewAsteroid(random);
+            NewAsteroid(-random);
 
             // FIXME do this better
             Destroy(gameObject);
@@ -102,5 +87,26 @@ public class Asteroid : MonoBehaviour
         // TODO spawn two smaller asteroids
         // TODO split them off at ~ 45 deg from current direction
         // Fire off event for score?
+    }
+
+    private void Split()
+    {
+        float randomAngle = Random.value * 45.0f;
+    }
+
+    private void NewAsteroid(float angle)
+    {
+        Asteroid roid = Instantiate(this, transform.position, Random.rotation);
+
+        Source.TrackAsteroid(roid);
+
+        roid.Size = Size / 2;
+        roid.Speed = Speed;
+        roid.Source = Source;
+
+        roid.CalculateSize();
+
+        var dir = Quaternion.AngleAxis(angle, Vector3.forward) * _direction;
+        roid.Project(dir);
     }
 } 
