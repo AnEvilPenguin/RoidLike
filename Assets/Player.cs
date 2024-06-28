@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.PackageManager;
 
 public class Player : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         teleporter.Configure(myCamera);
+        ItemCard.PlayerItemSelected += HandlePlayerItemSelected;
     }
 
     // Update is called once per frame
@@ -61,5 +63,36 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("A collsion occured");
+    }
+
+    private void HandlePlayerItemSelected(object sender, PlayerItemSelectedEventArgs e)
+    {
+        var item = e.Item;
+        switch (item.Type)
+        {
+            case PlayerItemType.Acceleration:
+                {
+                    Acceleration += item.Value;
+                    return;
+                }
+
+            case PlayerItemType.Rotation:
+                {
+                    MaxAngularMomentum += item.Value;
+                    return;
+                }
+
+            case PlayerItemType.Speed:
+                {
+                    MaxSpeed += item.Value;
+                    return;
+                }
+
+            default:
+                {
+                    Debug.LogError($"Unknown PlayeItem {item.Type}");
+                    return;
+                }
+        }
     }
 }

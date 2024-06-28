@@ -15,7 +15,7 @@ public class GameMaster : MonoBehaviour
     public Player Player;
 
     public TMP_Text ScoreLabel;
-    public GameObject LevelUpMenu;
+    public LevelUpMenu LevelUpMenu;
 
     public Tuple<int, int> ScoreToLevelUp = new Tuple<int, int> (5, 8);
     public int Score = 0;
@@ -24,15 +24,23 @@ public class GameMaster : MonoBehaviour
     private void Start()
     {
         Asteroid.AsteroidDestroyed += HandleAsteroidDestroyed;
+        ItemCard.PlayerItemSelected += HandlePlayerItemSelected;
     }
 
     private void HandleAsteroidDestroyed(object sender, AsteroidDestroyedEventArgs e) =>
         UpdateScore(e.Score);
 
+    private void HandlePlayerItemSelected(object sender, PlayerItemSelectedEventArgs e)
+    {
+        LevelUpMenu.ShowMenu(false);
+        ResumeGame();
+    }
+
+
     private void UpdateScore(int scoreIncrease)
     {
         Score += scoreIncrease;
-        ScoreLabel.text = Score.ToString();
+        ScoreLabel.text = $"{Score} / {ScoreToLevelUp.Item2}";
 
         if (Score >= ScoreToLevelUp.Item2)
         {
@@ -54,7 +62,7 @@ public class GameMaster : MonoBehaviour
         {
             PauseGame();
             levelUp(this, new EventArgs());
-            LevelUpMenu.SetActive(true);
+            LevelUpMenu.ShowMenu(true);
         }
     }
 
