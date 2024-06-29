@@ -7,4 +7,7 @@ public class MenuMaster : MonoBehaviour
 {
     public void HandleNewGameClick() =>
         SceneManager.LoadScene(1);
+
+    public void HandleQuitClick() =>
+        Application.Quit();
 }
