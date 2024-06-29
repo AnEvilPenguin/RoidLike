@@ -33,6 +33,8 @@ public class GameMaster : MonoBehaviour
         Player.PlayerDestroyed += HandlePlayerDestroyed;
 
         countDownTimer.Elapsed += (sender, e) => ProcessCountdown();
+
+        UpdateScore(0);
     }
 
     private void OnDestroy()
