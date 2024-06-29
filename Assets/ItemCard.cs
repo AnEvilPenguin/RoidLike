@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class PlayerItemSelectedEventArgs : System.EventArgs
 {
@@ -26,18 +23,9 @@ public class ItemCard : MonoBehaviour
     public Button SelectButton;
     public PlayerItem Item;
 
-    /*
-    private void Start()
-    {
-        // For whatever reason I am apparently incapable of getting a button to accept clicks
-        SelectButton.GetComponent<Button>().onClick.AddListener(() => HandleClick());
-    }
-    */
-
-
     public void ConnectItem(PlayerItem item)
     {
-        Item = item;
+          Item = item;
 
         ItemName.text = Item.Name;
         ItemDescription.text = Item.Description;

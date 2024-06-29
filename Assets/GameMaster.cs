@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Timers;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameMaster : MonoBehaviour
@@ -15,16 +13,48 @@ public class GameMaster : MonoBehaviour
     public Player Player;
 
     public TMP_Text ScoreLabel;
+    public GameObject CountDown;
+    public TMP_Text CountDownText;
     public LevelUpMenu LevelUpMenu;
 
-    public Tuple<int, int> ScoreToLevelUp = new Tuple<int, int> (5, 8);
+    public Tuple<int, int> ScoreToLevelUp = new Tuple<int, int>(5, 8);
     public int Score = 0;
     public int Level = 1;
+
+    public Timer countDownTimer = new Timer(1000);
+    public int CountDownSeconds = 3;
 
     private void Start()
     {
         Asteroid.AsteroidDestroyed += HandleAsteroidDestroyed;
         ItemCard.PlayerItemSelected += HandlePlayerItemSelected;
+
+        countDownTimer.Elapsed += (sender, e) => ProcessCountdown();
+    }
+
+    private void Update()
+    {
+        if (countDownTimer.Enabled)
+        {
+            CountDownText.text = CountDownSeconds.ToString();
+        }
+        else if (!countDownTimer.Enabled && CountDown.activeSelf)
+        {
+            CountDownText.text = CountDownSeconds.ToString();
+            CountDown.SetActive(false);
+            ResumeGame();
+        }
+    }
+
+    private void ProcessCountdown()
+    {
+        CountDownSeconds--;
+
+        if (CountDownSeconds <= 0)
+        {
+            countDownTimer.Stop();
+            CountDownSeconds = 3;
+        }
     }
 
     private void HandleAsteroidDestroyed(object sender, AsteroidDestroyedEventArgs e) =>
@@ -32,8 +62,9 @@ public class GameMaster : MonoBehaviour
 
     private void HandlePlayerItemSelected(object sender, PlayerItemSelectedEventArgs e)
     {
-        LevelUpMenu.ShowMenu(false);
-        ResumeGame();
+        LevelUpMenu.ShowMenu(false);;
+        CountDown.SetActive(true);
+        countDownTimer.Start();
     }
 
 
