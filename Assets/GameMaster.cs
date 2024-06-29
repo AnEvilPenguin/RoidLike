@@ -2,6 +2,7 @@ using System;
 using System.Timers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class GameMaster : MonoBehaviour
     public GameObject CountDown;
     public TMP_Text CountDownText;
     public LevelUpMenu LevelUpMenu;
+    public GameObject GameOverButton;
 
     public Tuple<int, int> ScoreToLevelUp = new Tuple<int, int>(5, 8);
     public int Score = 0;
@@ -28,8 +30,18 @@ public class GameMaster : MonoBehaviour
     {
         Asteroid.AsteroidDestroyed += HandleAsteroidDestroyed;
         ItemCard.PlayerItemSelected += HandlePlayerItemSelected;
+        Player.PlayerDestroyed += HandlePlayerDestroyed;
 
         countDownTimer.Elapsed += (sender, e) => ProcessCountdown();
+    }
+
+    private void OnDestroy()
+    {
+        // Need to unsubscribe as well otherwise we get null references on re-load
+        // Could also be avoided by not using static handlers.
+        Asteroid.AsteroidDestroyed -= HandleAsteroidDestroyed;
+        ItemCard.PlayerItemSelected -= HandlePlayerItemSelected;
+        Player.PlayerDestroyed -= HandlePlayerDestroyed;
     }
 
     private void Update()
@@ -65,6 +77,16 @@ public class GameMaster : MonoBehaviour
         LevelUpMenu.ShowMenu(false);;
         CountDown.SetActive(true);
         countDownTimer.Start();
+    }
+
+    public void HandleGameOverClicked() =>
+        SceneManager.LoadScene(0);
+
+    public void HandlePlayerDestroyed(object sender, EventArgs e)
+    {
+        GameOverButton.SetActive(true);
+        Destroy(Player);
+        // Could consider pausing here, but asteroids moving around still could be cool?
     }
 
 

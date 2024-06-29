@@ -1,11 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.PackageManager;
 
 public class Player : MonoBehaviour
 {
+    public static event System.EventHandler PlayerDestroyed;
+
+    public delegate void PlayerDestroyedEventHandler();
+
     public Rigidbody2D myRigidbody;
     public Renderer myRenderer;
     public Camera myCamera;
@@ -62,7 +62,15 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("A collsion occured");
+        // TODO consider health system.
+        // Larger asteroids do more damage, etc.
+
+        var raiseEvent = PlayerDestroyed;
+
+        if (raiseEvent != null)
+        {
+            raiseEvent(this, new System.EventArgs());
+        }
     }
 
     private void HandlePlayerItemSelected(object sender, PlayerItemSelectedEventArgs e)
